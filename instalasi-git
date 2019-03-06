@@ -1,0 +1,13 @@
+Instalasi git
+pertama login ke akun github buat sebuah repository baru dengan nama tcclanjut isikan discripsi sesuai keinginan boleh di kosongin selanjutnya pilih public centang bagian initialize this repository
+selanjutnya klik create repository
+setelah klik create repository maka akan terdapat tampilan repo baru yang telah di buat sebeumnya
+selanjutnya kita download git.exe jika menggunakan windows setelah selesai download double klik untuk melakukan instalasi
+selanjutnya klik next
+pada kotak select komponen klik next 
+pada configurasi line ending pilih yang checkout windows selanjutnya klik next
+selanjutnya pada configurasi experinmental centang enable file dan klik next
+berhubung saya sebelumnya sudah pernah install git maka akan melakukan uninstall git yang sebelumnya telah diinstall tunggu proses sampai selesai
+setelah proses uninstall selesai maka akan memasang git yang akan kita install tunggu proses sampai selesai
+jika proses instalasi telah selesai maka akan seperti gambar dibawah ini klik finish
+untuk mengetes apakah git sudah terisntall di laptop/pc cari folder git bash masuk keterminal git lalu ketikkan git –version jika terdapat git versi yang telah kita download sebelumnya maka proses instalasi git sukses
