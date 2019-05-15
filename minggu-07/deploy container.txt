@@ -1,0 +1,75 @@
+Step 1 - Create Deployment
+
+copy  ke editor script dibawah ini Definisi tersebut mendefinisikan cara meluncurkan aplikasi yang disebut webapp1 menggunakan Docker Image katacoda / docker-http-server yang berjalan pada Port 80.
+
+Copy to Editor
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: webapp1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: webapp1
+    spec:
+      containers:
+      - name: webapp1
+        image: katacoda/docker-http-server:latest
+        ports:
+        - containerPort: 80
+untuk mengcluster gunakan perintah
+ kubectl create -f deployment.yaml
+
+selanjutnya ketikkan script
+ kubectl get deployment
+
+selanjutnya ketikkan kubectl describe deployment webapp1
+Step 2 - Create Service
+Kubernetes has powerful networking capabilities that control how applications communicate. These networking configurations can also be controlled via YAML.
+
+Task
+Copy the Service definition to the editor. The Service selects all applications with the label webapp1. As multiple replicas, or instances, are deployed, they will be automatically load balanced based on this common label. The Service makes the application available via a NodePort.
+
+Copy to Editor
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp1-svc
+  labels:
+    app: webapp1
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    nodePort: 30080
+  selector:
+    app: webapp1
+All Kubernetes objects are deployed in a consistent way using kubectl.
+
+Deploy the Service with kubectl create -f service.yaml
+
+As before, details of all the Service objects deployed with kubectl get svc. By describing the object it's possible to discover more details about the configuration kubectl describe svc webapp1-svc.
+
+curl host01:30080
+
+Step 3 - Scale Deployment
+Details of the YAML can be changed as different configurations are required for deployment. This follows an infrastructure as code mindset. The manifests should be kept under source control and used to ensure that the configuration in production matches the configuration in source control.
+
+Task
+Update the deployment.yaml file to increase the number of instances running. For example, the file should look like this:
+
+replicas: 4
+Updates to existing definitions are applied using kubectl apply. To scale the number of replicas, deploy the updated YAML file using kubectl apply -f deployment.yaml
+
+Instantly, the desired state of our cluster has been updated, viewable with kubectl get deployment
+
+Additional Pods will be scheduled to match the request. kubectl get pods
+
+As all the Pods have the same label selector, they'll be load balanced behind the Service NodePort deployed.
+
+Issuing requests to the port will result in different containers processing the request curl host01:30080
+
+Additional Kubernetes Networking details and Object Definitions will will be covered in future scenarios.
+
